@@ -6,9 +6,19 @@ import {
     AsyncStorage,
     ActivityIndicator,
 } from "react-native";
-import { NavigationActions } from "react-navigation";
+import { NavigationActions, StackActions } from "react-navigation";
 
 export default class Initiator extends Component {
+    constructor(props) {
+        super(props);
+        this._bootstrap();
+    }
+
+    _bootstrap = async () => {
+        const user = await AsyncStorage.getItem("CURRENT_USER");
+        this.props.navigation.navigate(user ? "Home" : "SignIn");
+    };
+
     render() {
         return (
             <View style={styles.container}>
